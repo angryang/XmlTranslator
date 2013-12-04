@@ -1,0 +1,10 @@
+E:\GitHub\XmlTranslator\bin\Debug\XmlTranslate.exe
+E:\GitHub\XmlTranslator\bin\Debug\XmlTranslate.pdb
+E:\GitHub\XmlTranslator\bin\Debug\Led.I18n.dll
+E:\GitHub\XmlTranslator\bin\Debug\Led.Comm.dll
+E:\GitHub\XmlTranslator\bin\Debug\Led.I18n.pdb
+E:\GitHub\XmlTranslator\bin\Debug\Led.Comm.pdb
+E:\GitHub\XmlTranslator\obj\Debug\XmlTranslate.MainForm.resources
+E:\GitHub\XmlTranslator\obj\Debug\XmlTranslator.csproj.GenerateResource.Cache
+E:\GitHub\XmlTranslator\obj\Debug\XmlTranslate.exe
+E:\GitHub\XmlTranslator\obj\Debug\XmlTranslate.pdb

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Led.I18n;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -17,7 +18,11 @@ namespace XmlTranslate
 {
     public partial class MainForm : Form
     {
-        private Dictionary<string, string> langDic = new Dictionary<string, string>();
+        private const string EN = "英文";
+        private const string ZHCHS = "简体中文";
+        private const string ZHCHT = "繁体中文";
+
+        private List<string> langList = new List<string>();
 
         private object xmlObj = null;
 
@@ -25,11 +30,11 @@ namespace XmlTranslate
         {
             InitializeComponent();
 
-            langDic.Add("英文", "en");
-            langDic.Add("简体中文", "zh-CN");
-            langDic.Add("繁体中文", "zh-TW");
+            langList.Add(EN);
+            langList.Add(ZHCHS);
+            langList.Add(ZHCHT);
 
-            foreach (string item in langDic.Keys)
+            foreach (string item in langList)
             {
                 cmb_SrcLang.Items.Add(item);
                 cmb_TgtLang.Items.Add(item);
@@ -114,10 +119,26 @@ namespace XmlTranslate
 
         private void Translate(ref string nameTextDic)
         {
-            string srcLang = this.langDic[this.cmb_SrcLang.SelectedItem as string];
-            string tgtLang = this.langDic[this.cmb_TgtLang.SelectedItem as string];
+            LanguageType fromLang = GetLanguageType(this.cmb_SrcLang.SelectedItem as string);
+            LanguageType toLang =  GetLanguageType(this.cmb_TgtLang.SelectedItem as string);
 
-            MultiLanguageTranslate(nameTextDic, srcLang, tgtLang);
+            Transalte(nameTextDic, fromLang, toLang);
+        }
+
+
+        private LanguageType GetLanguageType(string languageName)
+        {
+            switch (languageName)
+            {
+                case EN:
+                    return LanguageType.English;
+                case ZHCHS:
+                    return LanguageType.ChineseSimplified;
+                case ZHCHT :
+                    return LanguageType.ChineseTraditional;
+                default :
+                    return LanguageType.Empty;
+            }
         }
 
 
@@ -129,7 +150,7 @@ namespace XmlTranslate
         /// <param name="tgtLang">译文语种</param> 
         /// <returns></returns> 
 
-        private string GetGoogleTrans(string transStr, string srcLang, string tgtLang)
+        private string Transalte(string transStr, LanguageType srcLang, LanguageType tgtLang)
         {
             Led.DataCenter.IniManage.SetIniFilePath("Config.ini", true);
             string timeStr = Led.DataCenter.IniManage.GetValueFromFile("BASIC", "TIME");
@@ -140,32 +161,36 @@ namespace XmlTranslate
 
             if (time >= 950)
                 return string.Empty;
-            string serverUrl = "";
+            //string serverUrl = "";
+            string result = "";
             switch (this.comboBox1.SelectedItem as string)
             {
                 case "bing":
-                    serverUrl = @"";
+
+                    result = BingTranslator.GetInstance().Translate(transStr, srcLang, tgtLang);
 
                     break;
                 case "youdao":
-                    serverUrl = @"http://fanyi.youdao.com/openapi.do?keyfrom=Angryang666&key=1543796253&type=data&doctype=json&version=1.1&q=" + HttpUtility.UrlEncode(transStr);
+                    //serverUrl = @"http://fanyi.youdao.com/openapi.do?keyfrom=Angryang666&key=1543796253&type=data&doctype=json&version=1.1&q=" + HttpUtility.UrlEncode(transStr);
                     break;
 
                 default:
                     break;
             }
-            WebRequest request = HttpWebRequest.Create(serverUrl);
-            request.Credentials = CredentialCache.DefaultCredentials;
-            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
-            Stream dataStream = response.GetResponseStream();
-            StreamReader reader = new StreamReader(dataStream);
-            string responseFromServer = reader.ReadToEnd();
-            reader.Close();
-            dataStream.Close();
-            response.Close();
-            time++;
-            Led.DataCenter.IniManage.SaveValueToFile("BASIC", "TIME", time.ToString());
-            return responseFromServer;
+            //WebRequest request = HttpWebRequest.Create(serverUrl);
+            //request.Credentials = CredentialCache.DefaultCredentials;
+            //HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+            //Stream dataStream = response.GetResponseStream();
+            //StreamReader reader = new StreamReader(dataStream);
+            //string responseFromServer = reader.ReadToEnd();
+            //reader.Close();
+            //dataStream.Close();
+            //response.Close();
+            //time++;
+            //Led.DataCenter.IniManage.SaveValueToFile("BASIC", "TIME", time.ToString());
+            //return responseFromServer;
+
+            return result;
         }
 
         public string MultiLanguageTranslate(string strTranslateString, string strRequestLanguage, string strResultLanguage)
@@ -174,13 +199,13 @@ namespace XmlTranslate
             {
                 if (!string.IsNullOrEmpty(strTranslateString))
                 {
-                    string result = GetGoogleTrans(strTranslateString, strRequestLanguage, strResultLanguage);
+                    //string result = GetGoogleTrans(strTranslateString, strRequestLanguage, strResultLanguage);
 
-                    TranslationData transtring = (TranslationData)Newtonsoft.Json.JsonConvert.DeserializeObject(result, typeof(TranslationData));
-                    if (transtring.errorCode == 0)
-                        return "";
-                    //return transtring.responseData.translatedText;
-                    else
+                    //TranslationData transtring = (TranslationData)Newtonsoft.Json.JsonConvert.DeserializeObject(result, typeof(TranslationData));
+                    //if (transtring.errorCode == 0)
+                    //    return "";
+                    ////return transtring.responseData.translatedText;
+                    //else
                         return "There was an error.";
                 }
                 else

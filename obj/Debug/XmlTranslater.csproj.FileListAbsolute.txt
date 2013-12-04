@@ -5,3 +5,10 @@ D:\LedDevelop\XmlTranslater\obj\Debug\XmlTranslate.MainForm.resources
 D:\LedDevelop\XmlTranslater\bin\Debug\XmlTranslate.exe
 D:\LedDevelop\XmlTranslater\obj\Debug\XmlTranslate.exe
 D:\LedDevelop\XmlTranslater\obj\Debug\XmlTranslater.csprojResolveAssemblyReference.cache
+E:\GitHub\XmlTranslator\obj\Debug\XmlTranslate.exe
+E:\GitHub\XmlTranslator\obj\Debug\XmlTranslate.pdb
+E:\GitHub\XmlTranslator\bin\Debug\XmlTranslate.exe
+E:\GitHub\XmlTranslator\bin\Debug\XmlTranslate.pdb
+E:\GitHub\XmlTranslator\obj\Debug\XmlTranslate.MainForm.resources
+E:\GitHub\XmlTranslator\obj\Debug\XmlTranslater.csproj.GenerateResource.Cache
+E:\GitHub\XmlTranslator\obj\Debug\XmlTranslater.csprojResolveAssemblyReference.cache
