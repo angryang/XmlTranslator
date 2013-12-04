@@ -69,6 +69,12 @@ namespace XmlTranslate
                     return translation;
                 }
             }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+
+                return "";
+            }
             finally
             {
                 response.Close();

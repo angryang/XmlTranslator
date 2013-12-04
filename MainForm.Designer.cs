@@ -158,6 +158,7 @@
             this.btn_SwapChange.TabIndex = 2;
             this.btn_SwapChange.Text = "<-->";
             this.btn_SwapChange.UseVisualStyleBackColor = true;
+            this.btn_SwapChange.Click += new System.EventHandler(this.btn_SwapChange_Click);
             // 
             // cmb_SrcLang
             // 

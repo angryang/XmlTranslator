@@ -39,6 +39,8 @@ namespace XmlTranslate
                 cmb_SrcLang.Items.Add(item);
                 cmb_TgtLang.Items.Add(item);
             }
+
+            this.comboBox1.SelectedIndex = 1;
         }
 
         private void btn_SrcFile_Click(object sender, EventArgs e)
@@ -260,6 +262,14 @@ namespace XmlTranslate
                     result.Add(xmlElement.Name, xmlElement.Attributes["Text"].Value);
                 }
             }
+        }
+
+        private void btn_SwapChange_Click(object sender, EventArgs e)
+        {
+            int backupIndex = this.cmb_SrcLang.SelectedIndex;
+
+            this.cmb_SrcLang.SelectedIndex = this.cmb_TgtLang.SelectedIndex;
+            this.cmb_TgtLang.SelectedIndex = backupIndex;
         }
     }
 
