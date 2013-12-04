@@ -1,0 +1,7 @@
+D:\LedDevelop\XmlTranslater\bin\Debug\XmlTranslate.pdb
+D:\LedDevelop\XmlTranslater\obj\Debug\XmlTranslate.pdb
+D:\LedDevelop\XmlTranslater\obj\Debug\XmlTranslater.csproj.GenerateResource.Cache
+D:\LedDevelop\XmlTranslater\obj\Debug\XmlTranslate.MainForm.resources
+D:\LedDevelop\XmlTranslater\bin\Debug\XmlTranslate.exe
+D:\LedDevelop\XmlTranslater\obj\Debug\XmlTranslate.exe
+D:\LedDevelop\XmlTranslater\obj\Debug\XmlTranslater.csprojResolveAssemblyReference.cache
