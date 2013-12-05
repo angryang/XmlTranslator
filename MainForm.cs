@@ -24,6 +24,8 @@ namespace XmlTranslate
 
         private List<string> langList = new List<string>();
 
+        private string _FolderName = string.Empty;
+        private string _FileName = string.Empty;
         private object xmlObj = null;
 
         public MainForm()
@@ -40,7 +42,9 @@ namespace XmlTranslate
                 cmb_TgtLang.Items.Add(item);
             }
 
-            this.comboBox1.SelectedIndex = 1;
+            this.cmb_SrcLang.SelectedIndex = 0;
+            this.cmb_TgtLang.SelectedIndex = 1;
+            this.cmb_Translator.SelectedIndex = 1;
         }
 
         private void btn_SrcFile_Click(object sender, EventArgs e)
@@ -71,14 +75,13 @@ namespace XmlTranslate
         {
             // 从文件读取要翻译的字符
             Hashtable nameTextDic = ReadXml();
-            Hashtable backupDic = nameTextDic;
+            if (nameTextDic == null) return;
 
-            string s = "text";
             // 翻译
-            Translate(ref s);
+            //Translate(ref nameTextDic);
 
             // 将翻译好的内容保存到新的文件
-            SaveResult();
+            SaveResultToXml(nameTextDic);
         }
 
         private void btn_Close_Click(object sender, EventArgs e)
@@ -106,6 +109,10 @@ namespace XmlTranslate
             string file = this.txt_SrcFile.Text;
             if (!File.Exists(file)) return nameTextHash;
 
+            string[] results = file.Split('\\');
+            this._FileName = results[results.Length - 1];
+            this._FolderName = file.Replace(this._FileName, "");
+
             XmlDocument document = new XmlDocument();
             document.Load(file);
 
@@ -119,12 +126,14 @@ namespace XmlTranslate
             return nameTextHash;
         }
 
-        private void Translate(ref string nameTextDic)
+        private void Translate(ref Hashtable nameTextDic)
         {
             LanguageType fromLang = GetLanguageType(this.cmb_SrcLang.SelectedItem as string);
-            LanguageType toLang =  GetLanguageType(this.cmb_TgtLang.SelectedItem as string);
+            LanguageType toLang = GetLanguageType(this.cmb_TgtLang.SelectedItem as string);
 
-            Transalte(nameTextDic, fromLang, toLang);
+
+            string s = "text";
+            Transalte(s, fromLang, toLang);
         }
 
 
@@ -136,9 +145,9 @@ namespace XmlTranslate
                     return LanguageType.English;
                 case ZHCHS:
                     return LanguageType.ChineseSimplified;
-                case ZHCHT :
+                case ZHCHT:
                     return LanguageType.ChineseTraditional;
-                default :
+                default:
                     return LanguageType.Empty;
             }
         }
@@ -151,7 +160,6 @@ namespace XmlTranslate
         /// <param name="strRequestLanguage">原文语种</param> 
         /// <param name="tgtLang">译文语种</param> 
         /// <returns></returns> 
-
         private string Transalte(string transStr, LanguageType srcLang, LanguageType tgtLang)
         {
             Led.DataCenter.IniManage.SetIniFilePath("Config.ini", true);
@@ -165,7 +173,7 @@ namespace XmlTranslate
                 return string.Empty;
             //string serverUrl = "";
             string result = "";
-            switch (this.comboBox1.SelectedItem as string)
+            switch (this.cmb_Translator.SelectedItem as string)
             {
                 case "bing":
 
@@ -173,7 +181,9 @@ namespace XmlTranslate
 
                     break;
                 case "youdao":
-                    //serverUrl = @"http://fanyi.youdao.com/openapi.do?keyfrom=Angryang666&key=1543796253&type=data&doctype=json&version=1.1&q=" + HttpUtility.UrlEncode(transStr);
+                    break;
+
+                case "baidu":
                     break;
 
                 default:
@@ -208,7 +218,7 @@ namespace XmlTranslate
                     //    return "";
                     ////return transtring.responseData.translatedText;
                     //else
-                        return "There was an error.";
+                    return "There was an error.";
                 }
                 else
                 {
@@ -221,19 +231,71 @@ namespace XmlTranslate
             }
         }
 
-        private void SaveResult()
+        private void SaveResultToXml(Hashtable resultText)
         {
-            //throw new NotImplementedException();
+            if (!this.chk_SameToSrc.Checked)
+            {
+                this._FolderName = this.txt_TargetFolder.Text;
+            }
+
+            string file = Path.Combine(this._FolderName, this._FileName);
+            int index = 0;
+            while (File.Exists(file))
+            {
+                string preFileName = string.Format("{0}{1}", this._FileName.Replace(".xml", ""), (index == 0 ? "" : index.ToString()));
+                string nxtFileName = string.Format("{0}{1}", this._FileName.Replace(".xml", ""), index + 1);
+
+                file = file.Replace(preFileName, nxtFileName);
+                index++;
+            }
+
+            FileStream fileStream = File.Create(file);
+
+            byte[] bytes = File.ReadAllBytes(this.txt_SrcFile.Text);
+
+            fileStream.Write(bytes, 0, bytes.Length);
+
+            fileStream.Close();
+            fileStream.Dispose();
+
+
         }
 
-        private static void ReadXmlNode(XmlNode xmlNode, out Hashtable result)
+
+        private void ReadAndSaveXml(string fileName, ref Hashtable resultText)
+        {
+            XmlDocument document = new XmlDocument();
+            document.Load(fileName);
+
+            foreach (XmlNode xmlNodeItem in document.ChildNodes)
+            {
+                UpdateXmlNode(xmlNodeItem, ref resultText);
+            }
+        }
+
+        private void UpdateXmlNode(XmlNode xmlNode, ref Hashtable resultText)
+        {
+
+        }
+
+        private void UpdateXmlText(XmlElement xmlElement, string value)
+        {
+            if (xmlElement == null) return;
+
+            if (xmlElement.HasAttribute("Text"))
+            {
+                xmlElement.Attributes["Text"].Value = value;
+            }
+        }
+
+        private void ReadXmlNode(XmlNode xmlNode, out Hashtable result)
         {
             result = new Hashtable();
 
             ReadSubXmlNode(xmlNode, ref result);
         }
 
-        private static void ReadSubXmlNode(XmlNode xmlNode, ref Hashtable result)
+        private void ReadSubXmlNode(XmlNode xmlNode, ref Hashtable result)
         {
             if (xmlNode is XmlElement)
             {
@@ -249,7 +311,7 @@ namespace XmlTranslate
             }
         }
 
-        private static void MakeHashTable(XmlElement xmlElement, ref Hashtable result)
+        private void MakeHashTable(XmlElement xmlElement, ref Hashtable result)
         {
             if (xmlElement.HasAttribute("Text"))
             {

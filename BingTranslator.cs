@@ -23,21 +23,6 @@ namespace XmlTranslate
             // to do something.
         }
 
-        private void dfjalksdjf()
-        {
-            //AdmAccessToken admToken;
-            //AdmAuthentication admAuth = new AdmAuthentication("XmlTranslator-Angryang", "m+hQ7/JNYBXafQp0f1MjxWa6pzVaWDuJcOCEakEbOYo=");
-            //admToken = admAuth.GetAccessToken();
-            string text = "This is a test string.";
-            string from = "en";
-            string to = "zh-CHS";
-
-
-            //string authToken = "Bearer" + " " + admToken.access_token;
-
-
-        }
-
         /// <summary>
         /// 
         /// </summary>

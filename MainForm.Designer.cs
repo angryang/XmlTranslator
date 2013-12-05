@@ -46,7 +46,7 @@
             this.btn_Translate = new System.Windows.Forms.Button();
             this.btn_Close = new System.Windows.Forms.Button();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.cmb_Translator = new System.Windows.Forms.ComboBox();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -97,7 +97,7 @@
             this.panel2.Location = new System.Drawing.Point(1, 92);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(615, 45);
-            this.panel2.TabIndex = 0;
+            this.panel2.TabIndex = 2;
             // 
             // btn_TargetFolder
             // 
@@ -133,7 +133,7 @@
             this.chk_SameToSrc.Location = new System.Drawing.Point(13, 70);
             this.chk_SameToSrc.Name = "chk_SameToSrc";
             this.chk_SameToSrc.Size = new System.Drawing.Size(180, 16);
-            this.chk_SameToSrc.TabIndex = 3;
+            this.chk_SameToSrc.TabIndex = 1;
             this.chk_SameToSrc.Text = "Same Folder to Source File";
             this.chk_SameToSrc.UseVisualStyleBackColor = true;
             this.chk_SameToSrc.CheckedChanged += new System.EventHandler(this.chk_SameToSrc_CheckedChanged);
@@ -148,7 +148,7 @@
             this.panel3.Location = new System.Drawing.Point(1, 143);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(615, 34);
-            this.panel3.TabIndex = 0;
+            this.panel3.TabIndex = 3;
             // 
             // btn_SwapChange
             // 
@@ -174,7 +174,7 @@
             this.cmb_TgtLang.Location = new System.Drawing.Point(418, 7);
             this.cmb_TgtLang.Name = "cmb_TgtLang";
             this.cmb_TgtLang.Size = new System.Drawing.Size(121, 20);
-            this.cmb_TgtLang.TabIndex = 1;
+            this.cmb_TgtLang.TabIndex = 4;
             // 
             // label4
             // 
@@ -182,7 +182,7 @@
             this.label4.Location = new System.Drawing.Point(311, 10);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(101, 12);
-            this.label4.TabIndex = 0;
+            this.label4.TabIndex = 3;
             this.label4.Text = "target language:";
             // 
             // label3
@@ -199,7 +199,7 @@
             this.btn_Translate.Location = new System.Drawing.Point(446, 192);
             this.btn_Translate.Name = "btn_Translate";
             this.btn_Translate.Size = new System.Drawing.Size(77, 32);
-            this.btn_Translate.TabIndex = 2;
+            this.btn_Translate.TabIndex = 5;
             this.btn_Translate.Text = "Translate";
             this.btn_Translate.UseVisualStyleBackColor = true;
             this.btn_Translate.Click += new System.EventHandler(this.btn_Translate_Click);
@@ -209,21 +209,21 @@
             this.btn_Close.Location = new System.Drawing.Point(529, 192);
             this.btn_Close.Name = "btn_Close";
             this.btn_Close.Size = new System.Drawing.Size(82, 32);
-            this.btn_Close.TabIndex = 2;
+            this.btn_Close.TabIndex = 6;
             this.btn_Close.Text = "Close";
             this.btn_Close.UseVisualStyleBackColor = true;
             this.btn_Close.Click += new System.EventHandler(this.btn_Close_Click);
             // 
-            // comboBox1
+            // cmb_Translator
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
+            this.cmb_Translator.FormattingEnabled = true;
+            this.cmb_Translator.Items.AddRange(new object[] {
             "youdao",
             "bing"});
-            this.comboBox1.Location = new System.Drawing.Point(25, 199);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(121, 20);
-            this.comboBox1.TabIndex = 1;
+            this.cmb_Translator.Location = new System.Drawing.Point(118, 199);
+            this.cmb_Translator.Name = "cmb_Translator";
+            this.cmb_Translator.Size = new System.Drawing.Size(121, 20);
+            this.cmb_Translator.TabIndex = 4;
             // 
             // MainForm
             // 
@@ -231,7 +231,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(618, 231);
             this.Controls.Add(this.chk_SameToSrc);
-            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.cmb_Translator);
             this.Controls.Add(this.btn_Close);
             this.Controls.Add(this.btn_Translate);
             this.Controls.Add(this.panel3);
@@ -272,6 +272,6 @@
         private System.Windows.Forms.Button btn_Close;
         private System.Windows.Forms.CheckBox chk_SameToSrc;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox cmb_Translator;
     }
 }

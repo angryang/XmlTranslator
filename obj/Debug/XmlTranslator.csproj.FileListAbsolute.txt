@@ -8,4 +8,3 @@ E:\GitHub\XmlTranslator\obj\Debug\XmlTranslate.MainForm.resources
 E:\GitHub\XmlTranslator\obj\Debug\XmlTranslator.csproj.GenerateResource.Cache
 E:\GitHub\XmlTranslator\obj\Debug\XmlTranslate.exe
 E:\GitHub\XmlTranslator\obj\Debug\XmlTranslate.pdb
-E:\GitHub\XmlTranslator\obj\Debug\XmlTranslator.csprojResolveAssemblyReference.cache

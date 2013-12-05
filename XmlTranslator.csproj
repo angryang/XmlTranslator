@@ -33,6 +33,7 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="BaiduTranslator.cs" />
     <Compile Include="BingTranslator.cs" />
     <Compile Include="JsonManage.cs" />
     <Compile Include="MainForm.cs">
